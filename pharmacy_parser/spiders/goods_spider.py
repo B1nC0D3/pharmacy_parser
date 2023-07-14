@@ -63,7 +63,7 @@ class GoodsSpider(spiders.CrawlSpider):
 
         # Достаем хэдер с помощью индека потому что xpath всегда возвращается список
         item_header = response.xpath(HEADER_XPATH)[0]
-
+        # Нафтизин капли назальные 0.1% п/э фл-кап 15мл
         raw_title_text = item_header.xpath(TITLE_XPATH).get()
 
         splitted_title = raw_title_text.split()
@@ -81,10 +81,11 @@ class GoodsSpider(spiders.CrawlSpider):
                     metadata['portion_size'] = word
                     # Добавление индкекса в условии обуслаовлено тем,
                     # что мы можем найти не только те числа которые нам нужны, но и допустим указание возраста и т. д.
-                    words_with_digit_indexes.append(i)
+                    # Так же меняем номер индекса для корректонго доставания
+                    words_with_digit_indexes.append(i - len(words_with_digit_indexes))
                 elif '%' in word:
                     metadata['meds_percentage'] = word
-                    words_with_digit_indexes.append(i)
+                    words_with_digit_indexes.append(i - len(words_with_digit_indexes))
 
         # Вытаскиваем из разбитого тайтла все элементы из прошлого этапа и соединяем обратно.
         # После добавляем размер в конец
