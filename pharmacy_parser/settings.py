@@ -1,21 +1,16 @@
-# Scrapy settings for pharmacy_parser project
-#
-# For simplicity, this file contains only settings considered important or
-# commonly used. You can find more settings consulting the documentation:
-#
-#     https://docs.scrapy.org/en/latest/topics/settings.html
-#     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import logging
 
 BOT_NAME = "pharmacy_parser"
 
 SPIDER_MODULES = ["pharmacy_parser.spiders"]
 NEWSPIDER_MODULE = "pharmacy_parser.spiders"
 
+LOG_FILE = "./data/logs.log"
+LOG_LEVEL = logging.INFO
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = "pharmacy_parser (+http://www.yourdomain.com)"
-
+USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
+COOKIES = {'city': '92'}
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = True
 
@@ -90,4 +85,29 @@ ROBOTSTXT_OBEY = True
 # Set settings whose default value is deprecated to a future-proof value
 REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
+FEEDS = {
+    "./data/items.json": {"format": "jsonlines", "encoding": "utf8", "indent": 4}
+}
 FEED_EXPORT_ENCODING = "utf-8"
+
+# Some custom consts
+
+PORTIONS_SYMBOLS = ('г', 'мг', 'мл', 'л')
+
+START_URLS = ('https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/prostudnye-zabolevaniya/ot-boli-v-gorle-tabletki',
+              'https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/prostudnye-zabolevaniya/ot-boli-v-gorle-sprey_-poloskaniya',
+              'https://apteka-ot-sklada.ru/catalog/medikamenty-i-bady/prostudnye-zabolevaniya/nasmork')
+
+
+# Xpath consts
+
+PRODUCTS_XPATH = '//div[@class="goods-grid__inner"]'
+PAGINATION_XPATH = '//*[@class="ui-pagination__list"]'
+HEADER_XPATH = '//header[@class="page-header container"]'
+TITLE_XPATH = './h1/span[@itemprop="name"]/text()'
+TAGS_XPATH = './/li[@class="goods-tags__item"]/span/text()'
+MANUFACTURER_INFO_XPATH = './/div[@itemprop="manufacturer"]/span/text()'
+SECTION_XPATH = '//ul[@class="ui-breadcrumbs__list"]//span[@itemprop="name"]/text()'
+DESCRIPTION_XPATH = '//div[@class="ui-collapsed-content__content"]//text()'
+PRICES_XPATH = '//div[@class="goods-offer-panel__price"]/span/text()'
+IMAGES_XPATH = '//div[@class="goods-gallery__sidebar"]//img'
