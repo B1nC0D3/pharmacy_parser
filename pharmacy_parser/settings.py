@@ -6,7 +6,7 @@ SPIDER_MODULES = ["pharmacy_parser.spiders"]
 NEWSPIDER_MODULE = "pharmacy_parser.spiders"
 
 LOG_FILE = "./data/logs.log"
-LOG_LEVEL = logging.INFO
+LOG_LEVEL = logging.DEBUG
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36"
